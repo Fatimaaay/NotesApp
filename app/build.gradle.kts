@@ -1,17 +1,17 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt") // ✅ must be in quotes
+    alias(libs.plugins.ksp) // Use the new KSP plugin
 }
 
 android {
     namespace = "com.example.notesapp"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.notesapp"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
     }
@@ -37,8 +37,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // ✅ Room
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")  // <-- this will now work
-    implementation("androidx.room:room-ktx:2.6.1")
-    testImplementation("androidx.room:room-testing:2.6.1")
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler) // Change from kapt to ksp
+    implementation(libs.androidx.room.ktx)
+    testImplementation(libs.androidx.room.testing)
+
 }
